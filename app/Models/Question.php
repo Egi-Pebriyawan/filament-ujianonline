@@ -12,4 +12,5 @@ class Question extends Model
     {
         return $this->hasMany(QuestionOption::class);
     }
+    protected $fillable = ['question', 'explanation'];
 }
