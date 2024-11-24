@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use PhpParser\Node\Stmt\Label;
 
 class PackageResource extends Resource
 {
@@ -31,6 +32,7 @@ class PackageResource extends Resource
                                 ->required()
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('duration')
+                                ->label('Durasi (dalam menit)')
                                 ->required()
                                 ->numeric(),
                         ])
@@ -44,9 +46,9 @@ class PackageResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('question_id')
                                     ->relationship('question', 'question')
-                
                                     ->label('Soal')
-                                    ->required(),
+                                    ->required()
+                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems(),
                                 ])
                                 ->columns(2)
                         ])
@@ -61,6 +63,12 @@ class PackageResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('duration')
+                    ->label('Durasi (dalam menit)')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('questions_count')
+                    ->counts('questions')
+                    ->label('Jumlah Soal')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
