@@ -5,6 +5,8 @@
             <div class="col-md-8">
                 <div id="question-container">
                     <div class="card question-card">
+                        <div class="countdown-timer mb-4 text-success text-center" id="countdown"> 
+                            Waktu tersisa : <span id="time">00:00:00</span></div>
                         <div class="card-body"> <!-- Perbaiki di menjadi div -->
                             <h5 class="card-title">Soal Nomor 1</h5>
                             <p class="card-text">Apa Warna Langit di siang hari?</p>
@@ -49,4 +51,30 @@
             </div>
         </div>
     </div>
+    <!--Function javascript untuk countdown-->
+    <script>
+        function startCountdown (duration, display) {
+        let timer = duration, hours, minutes, seconds;
+        console.log(timer);
+        const interval = setInterval(() => {
+        hours = Math.floor(timer / 3600);
+        minutes = Math.floor((timer % 3600) / 60);
+        seconds = timer % 60;
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+        if (--timer < 0) {
+            clearInterval(interval);
+            display.textContent = "Time's up!";
+        }
+    }, 1000);}
+
+        // Function DOM untuk memanipulasi element di HTML terutama di countdown
+        window.onload = function(){
+        const duration = 60 *60;
+        const display = document.querySelector('#time');
+        startCountdown(duration, display);
+    }
+    </script>
 </div>
