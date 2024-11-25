@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PackageResource\Pages;
 use App\Filament\Resources\PackageResource\RelationManagers;
 use App\Models\Package;
+use Doctrine\DBAL\Schema\Table as SchemaTable;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -89,6 +90,11 @@ class PackageResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('kerjakan')
+                    ->url(fn (Package $record): string => route('do-tryout', $record))
+                    ->color('success')
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-paper-airplane')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
