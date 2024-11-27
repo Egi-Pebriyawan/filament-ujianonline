@@ -46,12 +46,13 @@ class PackageResource extends Resource
                             ->relationship('questions')
                             ->schema([
                                 Forms\Components\Select::make('question_id')
+                                    ->allowHtml()
                                     ->relationship('question', 'question')
                                     ->label('Soal')
                                     ->required()
                                     ->disableOptionsWhenSelectedInSiblingRepeaterItems(),
                                 ])
-                        
+                    
                         ])
                 ])
         ]);

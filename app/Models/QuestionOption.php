@@ -13,7 +13,7 @@ class QuestionOption extends Model
 
 
 
-    //Fungsi untuk menghubungkan table option question ke question 
+    //Fungsi untuk menghubungkan table option question ke question nama functionnnya question
     public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class);

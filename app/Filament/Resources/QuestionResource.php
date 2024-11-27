@@ -46,8 +46,10 @@ protected static ?int $navigationSort =1;
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('question')->html(),
-                Tables\Columns\TextColumn::make('explanation')->html(),
+                Tables\Columns\TextColumn::make('question')
+                ->html(),
+                Tables\Columns\TextColumn::make('explanation')
+                ->html(),
                 Tables\Columns\TextColumn::make('options_count')
                     ->label ('Banyak Opsi Jawaban')
                     ->counts('options'),

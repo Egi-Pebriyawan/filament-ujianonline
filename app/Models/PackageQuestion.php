@@ -13,7 +13,9 @@ class PackageQuestion extends Model
         'question_id',
         'package_id', 
     ];
-
+// Relasi antara table Package Question ada 2. namanya function package nyambung atau belongs
+// to table Package
+// Relasi satunya lagi function question belongsto table Question
     public function package(): BelongsTo
     {
         return $this->belongsTo(Package::class);
