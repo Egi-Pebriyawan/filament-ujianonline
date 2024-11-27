@@ -51,7 +51,7 @@ class PackageResource extends Resource
                                     ->required()
                                     ->disableOptionsWhenSelectedInSiblingRepeaterItems(),
                                 ])
-                                ->columns(2)
+                        
                         ])
                 ])
         ]);
