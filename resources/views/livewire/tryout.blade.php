@@ -10,8 +10,8 @@
                             Waktu tersisa : <span id="time">00:00:00</span></div>
                         <div class="card-body"> <!-- Perbaiki di menjadi div -->
                         
-                            <p class="card-text">{!! $currentQuestion->question->question !!}</p>
-                            @foreach ($currentQuestion->question->options as $item)
+                            <p class="card-text">{!! $currentPackageQuestion->question->question !!}</p>
+                            @foreach ($currentPackageQuestion->question->options as $item)
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="question" value="1">
                                 <label class="form-check-label">{!! $item->option_text !!}</label>
@@ -30,7 +30,7 @@
                         <div class="btn-group-flex" role="group">
                             <!-- membuat agar navigasi di klik dan pindah halaman -->
                             @foreach ($questions as $index => $item)
-                            <button type="button" wire:click="goToQuestion({{$index}})" class="btn btn-outline-primary">{{$index+1}}</button>
+                            <button type="button" wire:click="goToQuestion({{$item->id}})" class="btn btn-outline-primary">{{$index+1}}</button>
                             @endforeach
                         </div>
                        <button type="button"  class="btn btn-primary mt-3 w-100">Submit</button>

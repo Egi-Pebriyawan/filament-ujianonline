@@ -4,11 +4,11 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Package;
 use App\Models\Question;
-class Tryout extends Component
+class TryoutOnline extends Component
 {
      // Membuat halaman tryout sesuai dengan package question
      public $package;
-     public $currentQuestion;
+     public $currentPackageQuestion;
      public $questions;
 
      public function mount($id){
@@ -17,7 +17,7 @@ class Tryout extends Component
         if($this->package){
             $this->questions = $this->package->questions;
             if($this->questions->isNotEmpty()){
-                $this->currentQuestion = $this->questions->first();
+                $this->currentPackageQuestion = $this->questions->first();
             }
         }
      }
@@ -29,8 +29,20 @@ class Tryout extends Component
         return view('livewire.tryout');
     }
     // membuat function untuk ketika di klik navbar soal dia pindah ke soal yang dimaksud
-    public function goToQuestion($index)
+    public function goToQuestion($package_question_id)
     {
-        $this->currentQuestion = $this->questions[$index];
+        $this->currentPackageQuestion = $this->questions->where('id', $package_question_id)->first();
+    }
+
+    //menghitung calculate time left 
+    protected function calculateTimeLeft()
+    {
+
+    }
+
+    // membuat function untuk save answer
+    public function saveAnswer ($questionId, $optionId)
+    {
+        
     }
 }
