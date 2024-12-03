@@ -41,6 +41,14 @@
     </div>
     <!--Function javascript untuk countdown-->
     <script>
+
+// Memanggil variable global dari php di TryoutOnline livewire ke javascript
+document.addEventListener('DOMContentLoaded', function() {
+            let timeLeft = {{$timeLeft}};
+            startCountdown(timeLeft, document.getElementById('time'));
+        });
+
+
         function startCountdown (duration, display) {
         let timer = duration, hours, minutes, seconds;
         console.log(timer);
@@ -58,11 +66,5 @@
         }
     }, 1000);}
 
-        // Function DOM untuk memanipulasi element di HTML terutama di countdown
-        window.onload = function(){
-        const duration = 60 *60;
-        const display = document.querySelector('#time');
-        startCountdown(duration, display);
-    }
     </script>
 </div>
