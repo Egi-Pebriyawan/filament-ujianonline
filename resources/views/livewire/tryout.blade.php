@@ -13,7 +13,16 @@
                             <p class="card-text">{!! $currentPackageQuestion->question->question !!}</p>
                             @foreach ($currentPackageQuestion->question->options as $item)
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="question" value="1">
+                                <input class="form-check-input"
+                                wire:model="selectedAnswers.{{$currentPackageQuestion->question_id}}"
+                                wire:click="saveAnswer({{$currentPackageQuestion->question_id}}, {{$item->id}})"
+                                 type="radio" 
+                                 name="question" 
+                                 value="{{$item->id}}"
+                                 @if($tryOutAnswers->isEmpty() || !$tryOutAnswers->contains ('option_id', $item->id))
+                                 @else
+                                    checked
+                                 @endif>
                                 <label class="form-check-label">{!! $item->option_text !!}</label>
                             </div>
                             @endforeach
@@ -42,11 +51,12 @@
     <!--Function javascript untuk countdown-->
     <script>
 
-// Memanggil variable global dari php di TryoutOnline livewire ke javascript
+// Memanggil variable global dari php di TryoutOnline livewire ke javascript untuk count down menggunakan server time
 document.addEventListener('DOMContentLoaded', function() {
             let timeLeft = {{$timeLeft}};
             startCountdown(timeLeft, document.getElementById('time'));
         });
+        
 
 
         function startCountdown (duration, display) {

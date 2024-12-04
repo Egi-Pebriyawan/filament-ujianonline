@@ -17,6 +17,8 @@ class TryoutOnline extends Component
      public $tryOut;
      public $questions;
      public $timeLeft;
+     public $tryOutAnswers;
+     public $selectedAnswers = [];
 
     //mount adalah sesuatu yang bakal dirender pertama kali oleh livewire
      public function mount($id){
@@ -54,6 +56,15 @@ class TryoutOnline extends Component
                     ]);
                 }
             }
+            $this->tryOutAnswers = TryOutAnswer::where('tryout_id', $this->tryOut->id)->get();
+// function untuk menampung jawaban sebelum disubmit.
+
+            foreach($this->tryOutAnswers as $answer) {
+                $this->selectedAnswers[$answer->question_id] = $answer->option_id;
+    
+            }
+          
+
             $this->calculateTimeLeft();
         }
      
@@ -92,6 +103,19 @@ class TryoutOnline extends Component
     // membuat function untuk save answer
     public function saveAnswer ($questionId, $optionId)
     {
-        $this->calculateTimeLeft();
+     
+        $option = QuestionOption::find($optionId);
+        $score = $option->score ?? 0;
+        $tryOutAnswer = TryoutAnswer::where('tryout_id', $this->tryOut->id)
+                        ->where('question_id', $questionId)
+                        ->first();
+         if ($tryOutAnswer){
+            $tryOutAnswer->update([
+                'option_id' => $optionId,
+                'score' => $score
+            ]);
+         }     
+         $this->tryOutAnswers = TryOutAnswer::where('tryout_id', $this->tryOut->id)->get();          
+         $this->calculateTimeLeft();
     }
 }
