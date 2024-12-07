@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tryout extends Model
 {
@@ -15,4 +17,16 @@ class Tryout extends Model
         'finished_at',
 
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function package()
+    {
+        return $this->belongsTo((Package::class));
+    }
+    public function tryOutAnswers()
+    {
+        return $this->hasMany(TryoutAnswer::class);
+    }
 }
