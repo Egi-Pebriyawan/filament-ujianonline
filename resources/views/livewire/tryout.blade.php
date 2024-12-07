@@ -1,6 +1,5 @@
 <div>
     <style>
-
         .active-question {
             border: 2px solid darkblue;
         }
@@ -23,10 +22,12 @@
             <div class="col-md-8">
                 <div id="question-container">
                     <div class="card question-card">
+                        @if ($tryOut->finished_at == null)
                         <div class="countdown-timer mb-4 text-success text-center" id="countdown"> 
                             Waktu tersisa : <span id="time">00:00:00</span></div>
+                            @endif
                         <div class="card-body"> <!-- Perbaiki di menjadi div -->
-                        
+                       
                             <p class="card-text">{!! $currentPackageQuestion->question->question !!}</p>
                             @foreach ($currentPackageQuestion->question->options as $item)
                             <div class="form-check">
@@ -34,7 +35,7 @@
                                 wire:model="selectedAnswers.{{$currentPackageQuestion->question_id}}"
                                 wire:click="saveAnswer({{$currentPackageQuestion->question_id}}, {{$item->id}})"
                                  type="radio" 
-                                 @if($timeLeft <=0)
+                                 @if ($timeLeft <=0)
                                  disabled
                                  class = "disabled-radio"
                                  @endif
@@ -75,11 +76,18 @@
                             </div>
                             @endforeach
                         </div>
-                       <button type="button"  class="btn btn-primary mt-3 w-100">Submit</button>
+                       <button type="button" wire:click="submit" onclick="return confirm ('Apakah anda yakin ingin mengirim jawaban ini?')"
+                       class="btn btn-primary mt-3 w-100">Submit</button>
                      </div>
                 </div>
             </div>
         </div>
+    <!-- panggil fungsi submit -->
+     @if (session()->has ('message'))
+     <div class="alert alert-success text-center">
+        {{session('message')}} <a href=""> Lihat Hasil Pengerjaan</a>
+     </div>
+     @endif
     </div>
     <!--Function javascript untuk countdown-->
     <script>

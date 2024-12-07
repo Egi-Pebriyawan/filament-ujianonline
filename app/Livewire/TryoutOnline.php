@@ -118,4 +118,10 @@ class TryoutOnline extends Component
          $this->tryOutAnswers = TryOutAnswer::where('tryout_id', $this->tryOut->id)->get();          
          $this->calculateTimeLeft();
     }
+    public function submit ()
+    {
+        $this->tryOut->update(['finished_at' => now()]);
+        $this->calculateTimeLeft();
+        session()->flash('message', 'Data berhasil disimpan');
+    }
 }
