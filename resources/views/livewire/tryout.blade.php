@@ -7,6 +7,13 @@
         .no-hover:hover {
             background-color: transparent !important;
             color: inherit !important;
+            .disabled-radio {
+                cursor: not-allowed;
+            }
+            .disable-button {
+                pointer-events: none;
+                opacity: 0.6;
+            }
         }
     </style>
     <div class="container mt-4">
@@ -27,6 +34,11 @@
                                 wire:model="selectedAnswers.{{$currentPackageQuestion->question_id}}"
                                 wire:click="saveAnswer({{$currentPackageQuestion->question_id}}, {{$item->id}})"
                                  type="radio" 
+                                 @if($timeLeft <=0)
+                                 disabled
+                                 class = "disabled-radio"
+                                 @endif
+
                                  name="question" 
                                  value="{{$item->id}}"
                                  @if($tryOutAnswers->isEmpty() || !$tryOutAnswers->contains ('option_id', $item->id))
@@ -55,6 +67,9 @@
                             @endphp
                             <div class="col-2 mb">                           
                             <button type="button" 
+                            @if($timeLeft <=0)
+                                 disabled
+                                 @endif
                             wire:click="goToQuestion({{$item->id}})" 
                             class="btn {{$isAnswered ? 'btn-primary' : 'btn-outline-primary no-hover'}} {{$isActive ? 'active-question' : ''}}">{{$index+1}}</button>
                             </div>
