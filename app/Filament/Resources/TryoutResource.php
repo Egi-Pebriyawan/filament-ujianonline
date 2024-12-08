@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TryoutResource\Pages;
 use App\Filament\Resources\TryoutResource\RelationManagers;
 use App\Models\Tryout;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,12 +13,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Auth;
 
 class TryoutResource extends Resource
 {
     protected static ?string $model = Tryout::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-arrow-right-start-on-rectangle';
 // Menambahakn nomer urut untuk tampilan menu
 protected static ?int $navigationSort =3;
     public static function form(Form $form): Form
@@ -41,6 +43,14 @@ protected static ?int $navigationSort =3;
     public static function table(Table $table): Table
     {
         return $table
+        // Membuat agar yang bisa melihat hanya super admin saja
+        ->modifyQueryUsing(function (Builder $query)
+        {$is_super_admin = Auth::user()->hasRole('super_admin');
+            if ( !$is_super_admin){
+                $query->where('user_id', Auth::user()->id);
+            }
+        })
+        //Akhir codingan untuk superadmin
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
@@ -76,6 +86,7 @@ protected static ?int $navigationSort =3;
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

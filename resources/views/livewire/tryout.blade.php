@@ -85,7 +85,7 @@
     <!-- panggil fungsi submit -->
      @if (session()->has ('message'))
      <div class="alert alert-success text-center">
-        {{session('message')}} <a href=""> Lihat Hasil Pengerjaan</a>
+        {{session('message')}} <a href="{{url('admin/tryouts')}}"> Lihat Hasil Pengerjaan</a>
      </div>
      @endif
     </div>
