@@ -57,7 +57,7 @@
     </div>
     @if($tryOut->finished_at != null)
         <div class="bg-green-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <a href="{{ url('/admin/try-outs') }}" class="underline">Lihat Hasil Pengerjaan</a>
+            <a href="{{ url('/admin/tryouts') }}" class="underline">Lihat Hasil Pengerjaan</a>
         </div>
     @endif
 </div>
