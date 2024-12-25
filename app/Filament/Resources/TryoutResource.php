@@ -20,6 +20,10 @@ class TryoutResource extends Resource
     protected static ?string $model = Tryout::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-arrow-right-start-on-rectangle';
+    // label nama mengganti jadi hasil ujian dari sebelumnya tryout 
+    protected static ?string $pluralLabel = 'Hasil Ujian';
+    protected static ?string $label = 'Hasil Ujian';
+    
 // Menambahakn nomer urut untuk tampilan menu
 protected static ?int $navigationSort =3;
     public static function form(Form $form): Form

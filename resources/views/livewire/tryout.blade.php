@@ -9,24 +9,24 @@
             </div>
         @endif
         <h2 class="text-2xl font-bold mb-4">{{ $package->name }}</h2>
-        <p class="text-gray-700">{{ $currentPackageQuestion->question->question }}</p>
+        <p class="text-gray-700">{!! $currentPackageQuestion->question->question !!}</p>
         <div class="mt-4">
             @foreach($currentPackageQuestion->question->options as $item)
                 @php
                     $answer = $tryOutAnswers->where('question_id', $currentPackageQuestion->question_id)->first();
                     $isSelected = $answer ? $answer->option_id == $item->id : false;
                 @endphp
-                <label class="block mb-2">
+                <label class="flex items-center gap-x-4 mb-2">
                     <input
                         id="option_{{ $currentPackageQuestion->question_id }}_{{ $item->id }}"
                         type="radio"
                         name="option"
-                        class="mr-2"
+                        class="mr-4"
                         wire:click="saveAnswer({{ $currentPackageQuestion->question_id }}, {{ $item->id }})"
                         value="{{ $item->id }}"
                         @if($timeLeft <= 0) disabled @endif
                         @if($isSelected) checked @endif>
-                    {{ $item->option_text }}
+                    {!! $item->option_text !!}
                 </label>
             @endforeach
         </div>
